@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to E-Hospital</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        .topbar-public {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 16px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topbar-public h1 {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .topbar-public a {
+            background-color: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .public-buttons {
+            margin-top: 40px;
+        }
+
+        .disabled-button {
+            width: 100%;
+            max-width: 300px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #9ca3af;
+            background-color: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            cursor: not-allowed;
+            margin: 20px auto;
+        }
+
+        .note {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="topbar-public">
+    <h1>E-Hospital</h1>
+    <a th:href="@{/login}">🔐 Login</a>
+</div>
+
+<!-- Public Welcome Content -->
+<div class="container">
+    <h2>🏥 Welcome to E-Hospital</h2>
+    <p>
+        This platform supports hospital staff in managing the full treatment process — from triage and diagnostics to monitoring and discharge.
+        Patient registration is handled directly by medical personnel after in-person consultation.
+    </p>
+
+    <div class="public-buttons">
+        <button class="disabled-button" disabled>📅 Request Appointment</button>
+        <p class="note">Feature under development – may be added for ambulatory patients in the future.</p>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <div>
+        <strong>E-Hospital</strong>
+        Empowering medical care with digital precision.
+    </div>
+    <div>
+        <strong>Quick Links</strong>
+        Home<br/>
+        Departments<br/>
+        Contact
+    </div>
+    <div>
+        <strong>Legal</strong>
+        Privacy Policy<br/>
+        Terms of Service<br/>
+        Cookie Policy
+    </div>
+    <div>
+        <strong>Contact</strong>
+        Email: support@ehospital.com<br/>
+        Phone: +40 123 456 789<br/>
+        Address: 123 Health Blvd, Bucharest
+    </div>
+</div>
+
+</body>
+</html>

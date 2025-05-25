@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Vitals by Patient</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <style>
+    .highlight-alert { background-color: #fff7ed; }
+    .status-icon { font-weight: bold; }
+    .status-stable { color: green; }
+    .status-observe { color: orange; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🩺 Vitals for <span th:text="${patient.firstName + ' ' + patient.lastName}">Patient Name</span></h1>
+  <p>Status:
+    <span th:if="${status == 'Stable'}" class="status-icon status-stable">🟢 Stable</span>
+    <span th:if="${status == 'Under Observation'}" class="status-icon status-observe">🟠 Under Observation</span>
+    <span th:if="${status == null}" style="color: gray;">⚪ Unknown</span>
+  </p>
+
+  <table border="1">
+    <tr>
+      <th>Temperature (°C)</th>
+      <th>Blood Pressure</th>
+      <th>Heart Rate</th>
+      <th>Timestamp</th>
+    </tr>
+    <tr th:each="v : ${vitalSigns}"
+        th:classappend="${status == 'Under Observation'} ? 'highlight-alert'">
+      <td th:text="${v.temperature}">36.5</td>
+      <td th:text="${v.bloodPressure}">120/80</td>
+      <td th:text="${v.heartRate}">80</td>
+      <td th:text="${#temporals.format(v.timestamp, 'yyyy-MM-dd HH:mm')}">Time</td>
+    </tr>
+  </table>
+
+  <div style="margin-top: 30px;">
+    <a th:href="@{/vitals/list}">
+      <button style="background-color: #2563eb; color: white; padding: 12px 24px; font-size: 16px;
+                           border: none; border-radius: 10px; cursor: pointer;">
+        ⬅ Back to All Vitals
+      </button>
+    </a>
+  </div>
+</div>
+</body>
+</html>

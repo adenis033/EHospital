@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Patients</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>🧾 All Patients</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.firstName + ' ' + patient.lastName}"></td>
+            <td th:text="${patient.email}"></td>
+            <td th:text="${patient.phone}"></td>
+            <td th:text="${patient.clinicalFile != null ? patient.clinicalFile.status : 'Not Admitted'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

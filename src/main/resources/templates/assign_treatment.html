@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assign Treatment Plan</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Assign Treatment Plan</h1>
+    <form th:action="@{/treatment-plans/assign}" th:object="${treatmentPlan}" method="post">
+
+        <label>Medication:
+            <input type="text" th:field="*{medication}" required/>
+        </label><br/>
+
+        <label>Procedures:
+            <input type="text" th:field="*{procedures}" required/>
+        </label><br/>
+
+        <label>Notes:
+            <textarea th:field="*{notes}"></textarea>
+        </label><br/>
+
+        <label>Clinical File:
+            <select th:field="*{clinicalFile.id}" required>
+                <option th:each="file : ${clinicalFiles}"
+                        th:value="${file.id}"
+                        th:text="'File #' + ${file.id} + ' - '
+                                 + ${file.patient.firstName} + ' '
+                                 + ${file.patient.lastName} + ' | Diagnosis: '
+                                 + ${file.initialDiagnosis}">
+                </option>
+            </select>
+        </label><br/><br/>
+
+        <button type="submit">Assign Treatment</button>
+    </form>
+</div>
+</body>
+</html>

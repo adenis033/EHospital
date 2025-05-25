@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Success</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+</head>
+<body>
+<div class="container">
+<h2>Patient registered successfully!</h2>
+<a href="/patients/register">Register another patient</a>
+    <div style="margin-top: 30px;">
+        <a th:href="@{/dashboard}">
+            <button style="
+                background-color: #2563eb;
+                color: white;
+                padding: 12px 24px;
+                font-size: 16px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;">
+                ⬅ Go to Dashboard
+            </button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

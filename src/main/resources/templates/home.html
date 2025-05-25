@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 28px 32px;
+            border-radius: 16px;
+            border: 1px solid #dbeafe;
+            text-align: center;
+            width: 240px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #1d4ed8;
+            font-weight: bold;
+            font-size: 16px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="left">
+        Welcome, <span sec:authentication="name"></span>!
+    </div>
+    <div class="right">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</div>
+<div class="container">
+    <h2>Your Access:</h2>
+
+    <div class="dashboard-stats" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px;">
+        <div class="section">
+            🏥 There are <strong th:text="${activeCount}">0</strong> patients currently in care.
+        </div>
+    </div>
+
+    <div class="card-grid">
+
+        <!-- Guard Doctor or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('GUARD_DOCTOR', 'ADMIN')">
+            <div class="card-icon">📝</div>
+            <a th:href="@{/patients/register}">Register Patient</a>
+        </div>
+
+        <!-- Guard Doctor or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('GUARD_DOCTOR', 'ADMIN')">
+            <div class="card-icon">📂</div>
+            <a th:href="@{/clinical-files/create}">Create Clinical File</a>
+        </div>
+
+        <!-- Guard Doctor or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('GUARD_DOCTOR', 'ADMIN')">
+            <div class="card-icon">♻️</div>
+            <a th:href="@{/clinical-files/reactivate}">Reactivate Patient</a>
+        </div>
+
+        <!-- Doctor or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('DOCTOR', 'ADMIN')">
+            <div class="card-icon">💊</div>
+            <a th:href="@{/treatment-plans/assign}">Assign Treatment</a>
+        </div>
+
+        <!-- Nurse or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('NURSE', 'ADMIN')">
+            <div class="card-icon">🩺</div>
+            <a th:href="@{/vitals/record}">Record Vitals</a>
+        </div>
+
+        <!-- Doctor or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('DOCTOR', 'ADMIN')">
+            <div class="card-icon">📤</div>
+            <a th:href="@{/clinical-files/discharge}">Discharge Patient</a>
+        </div>
+
+        <!-- Doctor, Nurse, or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('DOCTOR','NURSE','ADMIN')">
+            <div class="card-icon">📊</div>
+            <a th:href="@{/vitals/list}">View All Vitals</a>
+        </div>
+
+        <!-- Doctor or Admin -->
+        <div class="card" sec:authorize="hasAnyAuthority('DOCTOR','ADMIN', 'GUARD_DOCTOR', 'NURSE')">
+            <div class="card-icon">👥</div>
+            <a th:href="@{/patients/all}">View All Patients</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

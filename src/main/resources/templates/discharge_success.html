@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Discharge Successful</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+<h2>✅ Patient has been successfully discharged!</h2>
+<a href="/clinical-files/discharge">Discharge another patient</a>
+  <div style="margin-top: 30px;">
+    <a th:href="@{/dashboard}">
+      <button style="
+                background-color: #2563eb;
+                color: white;
+                padding: 12px 24px;
+                font-size: 16px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;">
+        ⬅ Go to Dashboard
+      </button>
+    </a>
+  </div>
+</div>
+</body>
+</html>

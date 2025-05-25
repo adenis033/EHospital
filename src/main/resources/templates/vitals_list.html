@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Vital Signs</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <style>
+        .highlight-alert {
+            background-color: #fff7ed; /* light orange */
+        }
+
+        .status-icon {
+            font-weight: bold;
+        }
+
+        .status-stable {
+            color: green;
+        }
+
+        .status-observe {
+            color: orange;
+        }
+
+        .status-unknown {
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📊 All Recorded Vital Signs</h1>
+
+    <table border="1">
+        <tr>
+            <th>Patient</th>
+            <th>Temperature (°C)</th>
+            <th>Blood Pressure</th>
+            <th>Heart Rate (bpm)</th>
+            <th>Timestamp</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="vital : ${vitalSigns}"
+            th:classappend="${vital.clinicalFile.evaluationStatus == 'Under Observation'} ? 'highlight-alert'">
+            <td>
+                <a th:href="@{'/vitals/patient/' + ${vital.clinicalFile.id}}"
+                   style="color: #2563eb; text-decoration: underline; font-weight: bold;">
+                    <span th:text="${vital.clinicalFile.patient.firstName + ' ' + vital.clinicalFile.patient.lastName}">Patient Name</span>
+                </a>
+            </td>
+            <td th:text="${vital.temperature}">36.5</td>
+            <td th:text="${vital.bloodPressure}">120/80</td>
+            <td th:text="${vital.heartRate}">80</td>
+            <td th:text="${#temporals.format(vital.timestamp, 'yyyy-MM-dd HH:mm')}">2025-05-21</td>
+
+            <td>
+                <span th:if="${vital.clinicalFile.evaluationStatus == 'Stable'}"
+                      class="status-icon status-stable">🟢 Stable</span>
+
+                <span th:if="${vital.clinicalFile.evaluationStatus == 'Under Observation'}"
+                      class="status-icon status-observe">🟠 Under Observation</span>
+
+                <span th:if="${vital.clinicalFile.evaluationStatus == null}"
+                      class="status-icon status-unknown">⚪ Unknown</span>
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 30px;">
+        <a th:href="@{/dashboard}">
+            <button style="
+                background-color: #2563eb;
+                color: white;
+                padding: 12px 24px;
+                font-size: 16px;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;">
+                ⬅ Go to Dashboard
+            </button>
+        </a>
+    </div>
+</div>
+</body>
+</html>

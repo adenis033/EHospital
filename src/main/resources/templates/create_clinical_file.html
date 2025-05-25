@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Clinical File</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+<h1>Create Clinical File</h1>
+<form th:action="@{/clinical-files/create}" th:object="${clinicalFile}" method="post">
+    <label>Admission Date:
+        <input type="text" th:field="*{admissionDate}" placeholder="YYYY-MM-DD" required/>
+    </label><br/>
+
+    <label>Initial Diagnosis:
+        <input type="text" th:field="*{initialDiagnosis}" required/>
+    </label><br/>
+
+    <label>Status:
+        <input type="text" th:field="*{status}" placeholder="e.g., Active or Discharged" required/>
+    </label><br/>
+
+    <label>Patient:
+        <select th:field="*{patient.id}" required>
+            <option th:each="patient : ${patients}"
+                    th:value="${patient.id}"
+                    th:text="${patient.firstName + ' ' + patient.lastName}">
+            </option>
+        </select>
+    </label><br/><br/>
+
+    <button type="submit">Create Clinical File</button>
+</form>
+</div>
+</body>
+</html>

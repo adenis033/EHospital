@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Record Vital Signs</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+</head>
+<body>
+<div class="container">
+<h1>Record Vital Signs</h1>
+<form th:action="@{/vitals/record}" th:object="${vitalSign}" method="post">
+    <label>Temperature (°C):
+        <input type="number" step="0.1" th:field="*{temperature}" required/>
+    </label><br/>
+
+    <label>Blood Pressure (e.g., 120/80):
+        <input type="text" th:field="*{bloodPressure}" required/>
+    </label><br/>
+
+    <label>Heart Rate (bpm):
+        <input type="number" th:field="*{heartRate}" required/>
+    </label><br/>
+
+    <label>Clinical File:
+        <select th:field="*{clinicalFile.id}" required>
+            <option th:each="file : ${clinicalFiles}"
+                    th:value="${file.id}"
+                    th:text="'File #' + ${file.id} + ' - ' + ${file.patient.firstName} + ' ' + ${file.patient.lastName}">
+            </option>
+        </select>
+    </label><br/><br/>
+
+    <button type="submit">Save Vital Signs</button>
+</form>
+</div>
+</body>
+</html>

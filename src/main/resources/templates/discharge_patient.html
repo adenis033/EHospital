@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Discharge Patient</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+</head>
+<body>
+<div class="container">
+<h1>Discharge Patient</h1>
+
+    <div th:if="${errorMessage}" class="error">
+        <p th:text="${errorMessage}">Error text</p>
+    </div>
+
+
+    <form th:action="@{/clinical-files/discharge}" th:object="${fileToDischarge}" method="post">
+    <label>Select Clinical File:
+        <select th:field="*{id}" required>
+            <option th:each="file : ${files}"
+                    th:value="${file.id}"
+                    th:text="'File #' + ${file.id} + ' - ' + ${file.patient.firstName} + ' ' + ${file.patient.lastName}">
+            </option>
+        </select>
+    </label><br/>
+
+    <label>Discharge Note:<br/>
+        <textarea th:field="*{dischargeNote}" rows="4" cols="50" required></textarea>
+    </label><br/><br/>
+
+    <button type="submit">Discharge</button>
+</form>
+</div>
+</body>
+</html>

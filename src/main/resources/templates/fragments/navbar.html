@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div style="background:#eee;padding:10px;margin-bottom:20px;">
+        <span sec:authorize="isAuthenticated()">
+            Logged in as: <b sec:authentication="name"></b>
+            |
+            Role(s): <b sec:authentication="principal.authorities"></b>
+            |
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit">Logout</button>
+            </form>
+        </span>
+</div>
+
+<div style="padding:10px;">
+    <a th:href="@{/patients/register}">Register Patient</a>
+    |
+    <a th:href="@{/clinical-files/create}" sec:authorize="hasAuthority('GUARD_DOCTOR')">Create Clinical File</a>
+    |
+    <a th:href="@{/treatment-plans/assign}" sec:authorize="hasAuthority('DOCTOR')">Assign Treatment</a>
+    |
+    <a th:href="@{/vitals/record}" sec:authorize="hasAuthority('NURSE')">Record Vitals</a>
+    |
+    <a th:href="@{/clinical-files/discharge}" sec:authorize="hasAuthority('DOCTOR')">Discharge Patient</a>
+    |
+    <a th:href="@{/vitals/list}" sec:authorize="hasAnyAuthority('ADMIN', 'DOCTOR', 'NURSE')">View All Vitals</a>
+</div>
+</body>
+</html>

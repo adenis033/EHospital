@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reactivate Patient</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h2>♻️ Reactivate Discharged Patient</h2>
+    <form th:action="@{/clinical-files/reactivate}" method="post" th:object="${fileToReactivate}">
+        <label>Select Clinical File:
+            <select th:field="*{id}" required>
+                <option th:each="file : ${dischargedFiles}"
+                        th:value="${file.id}"
+                        th:text="'File #' + ${file.id} + ' - ' + ${file.patient.firstName} + ' ' + ${file.patient.lastName}">
+                </option>
+            </select>
+        </label><br/><br/>
+
+        <label>Diagnosis:
+            <input type="text" th:field="*{initialDiagnosis}" placeholder="e.g., Hypertension" />
+        </label><br/><br/>
+
+        <button type="submit">Reactivate</button>
+    </form>
+</div>
+</body>
+</html>
